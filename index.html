@@ -1,13 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fluke Family Christmas</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fluke Family Christmas Mission Control</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#0f3d2e;
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+.card{
+    max-width:700px;
+    margin:auto;
+    background:#184f3d;
+    padding:30px;
+    border-radius:20px;
+}
+
+button{
+    font-size:1.2rem;
+    padding:15px 25px;
+    background:#d62828;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+#reveal{
+    display:none;
+    margin-top:25px;
+    font-size:2rem;
+}
+</style>
+
 </head>
 <body>
 
-<h1>🎄 Fluke Family Christmas Reveal 🎄</h1>
+<div class="card">
+    <h1>🎄 Fluke Family Christmas Mission Control 🎄</h1>
 
-<p>If you can see this page, GitHub Pages is working.</p>
+    <div id="content">
+        Loading Christmas assignment...
+    </div>
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+
+fetch("assignments.json")
+.then(r => r.json())
+.then(data => {
+
+    const person = data[code];
+
+    if(!person){
+        document.getElementById("content").innerHTML =
+        "<h2>No assignment found.</h2><p>Check your link.</p>";
+        return;
+    }
+
+    document.getElementById("content").innerHTML = `
+        <h2>${person["Name"]}</h2>
+
+        <p style="line-height:1.7">
+            ${person["Reveal Greeting"]}
+        </p>
+
+        <button id="showGift">
+            🎁 Reveal My Christmas Destiny
+        </button>
+
+        <div id="reveal">
+            🎁 ${person["Assigned Recipient"]} 🎁
+        </div>
+    `;
+
+    document.getElementById("showGift")
+      .addEventListener("click", () => {
+
+        document.getElementById("reveal")
+          .style.display = "block";
+
+      });
+
+});
+
+</script>
 
 </body>
 </html>
