@@ -120,9 +120,10 @@ h1{
 }
 .santa{
     position:absolute;
-    font-size:4rem;
-    left:-350px;
-    top:20px;
+    width:220px;
+    left:-260px;
+    top:10px;
+    z-index:20;
 }
 .fly{
     animation:flyAcross 7s linear forwards;
@@ -138,12 +139,13 @@ h1{
 /* gift */
 .gift{
     position:absolute;
-    font-size:5rem;
+    width:110px;
     top:80px;
     left:50%;
     transform:translateX(-50%);
     display:none;
     cursor:pointer;
+    z-index:30;
 }
 .dropGift{
     display:block;
@@ -170,10 +172,12 @@ h1{
 .reveal{
     display:none;
     margin-top:25px;
-    background:white;
-    color:#222;
+    background:#f7f1e3;
+    color:#284b3a;
     padding:25px;
     border-radius:12px;
+    border:2px solid #c9a84f;
+    box-shadow:0 0 20px rgba(201,168,79,.3);
 }
 .recipient{
     font-size:2.2rem;
@@ -217,12 +221,16 @@ h1{
     class="moon"
     src="images/winter-moon.png"
     alt="Winter Moon">
-    <div id="santa" class="santa">
-        🦌🦌🦌🎅
-    </div>
-    <div id="gift" class="gift">
-        🎁
-    </div>
+    <<img
+    id="santa"
+    class="santa"
+    src="images/santa-sleigh-silhouette.png"
+    alt="Santa Sleigh">
+    <<img
+    id="gift"
+    class="gift"
+    src="images/gift-box.png"
+    alt="Gift Box">
     <div id="tapMessage" class="tapMessage">
         <h2>
             🎁 Delivery Received 🎁
