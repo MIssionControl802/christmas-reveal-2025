@@ -1,6 +1,3 @@
-Here is your table as JSON, with each Secret Code as a root key. It's built from the live table, so it matches the sheet's current values. Copy it into a file named `assignments.json` and save it as UTF-8, so the emojis display correctly.
-
-```json
 {
   "8G2BCF": {
     "Name": "Al Fluke",
@@ -53,8 +50,3 @@ Here is your table as JSON, with each Secret Code as a root key. It's built from
     "Reveal Greeting": "🛷 BY DECREE OF THE SUPREME SLEIGH COMMAND, Kellett is hereby activated as a Special Agent of Christmas Destiny. Reindeer have been polished, the Nice List has been triple-checked by a committee of overly serious penguins, and the cocoa supply has been declared a matter of national security. Operation Jingle Bells is officially go. Your Christmas assignment awaits."
   }
 }
-```
-
-- **Structure:** Each key is a Secret Code, and its value holds `Name`, `Assigned Recipient` and `Reveal Greeting`.
-- **Spoilers:** The file includes each person's assigned recipient. If it goes on a public reveal website, serve each person only their own entry, looked up by their code.
-- **Omitted columns:** I left out the Pair and phone number columns, since you didn't ask for them.
