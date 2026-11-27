@@ -89,8 +89,14 @@ h1{
         transform:scale(1);
     }
 }
-.house{
-    font-size:5rem;
+.house img{
+    width:220px;
+    max-width:60vw;
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(255,220,120,.35)
+        );
 }
 .status{
     margin-top:15px;
@@ -103,6 +109,14 @@ h1{
     overflow:hidden;
     display:none;
     margin-top:20px;
+}
+    .moon{
+    position:absolute;
+    width:110px;
+    right:30px;
+    top:5px;
+    opacity:.85;
+    z-index:5;
 }
 .santa{
     position:absolute;
@@ -190,13 +204,19 @@ h1{
         Transmitting assignment coordinates...
     </div>
     <div class="house">
-        🏠
-    </div>
+    <img
+        src="images/winter-cottage-glow.png"
+        alt="Winter Cottage">
+</div>
     <button id="transmissionButton" class="primaryButton">
         📡 ACCEPT INCOMING TRANSMISSION
     </button>
 </div>
 <div id="skySection" class="sky">
+    <img
+    class="moon"
+    src="images/winter-moon.png"
+    alt="Winter Moon">
     <div id="santa" class="santa">
         🦌🦌🦌🎅
     </div>
