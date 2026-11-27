@@ -181,14 +181,14 @@ document.getElementById("gift")
     const gift =
         document.getElementById("gift");
     gift.classList.add("shake");
-    setTimeout(() => {
-        gift.style.opacity = ".15";
-        gift.style.transform = "scale(1.15)";
-        document.getElementById("recipientName")
-            .innerHTML = assignedRecipient;
-        document.getElementById("revealArea")
-            .style.display = "block";
-    }, 700);
+setTimeout(() => {
+    document.getElementById("giftArea")
+        .style.display = "none";
+    document.getElementById("recipientName")
+        .innerHTML = assignedRecipient;
+    document.getElementById("revealArea")
+        .style.display = "block";
+}, 700);
 });
 </script>
 </body>
