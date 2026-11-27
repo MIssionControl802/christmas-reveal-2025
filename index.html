@@ -3,15 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>🎄 Fluke Family Christmas Mission Control 🎄</title>
-
 <style>
-
 *{
     box-sizing:border-box;
 }
-
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -20,7 +16,6 @@ body{
     min-height:100vh;
     overflow-x:hidden;
 }
-
 .card{
     position:relative;
     max-width:900px;
@@ -32,21 +27,17 @@ body{
     box-shadow:0 10px 30px rgba(0,0,0,.4);
     z-index:5;
 }
-
 h1{
     text-align:center;
     margin-top:0;
 }
-
 .greeting{
     line-height:1.8;
     margin-top:20px;
 }
-
 .error{
     color:#ffcccc;
 }
-
 .primaryButton{
     background:#c62828;
     color:white;
@@ -57,13 +48,10 @@ h1{
     cursor:pointer;
     margin-top:20px;
 }
-
 .primaryButton:hover{
     background:#b71c1c;
 }
-
 /* snow */
-
 .snowflake{
     position:fixed;
     top:-20px;
@@ -72,58 +60,43 @@ h1{
     pointer-events:none;
     animation:snowFall linear infinite;
 }
-
 @keyframes snowFall{
-
     from{
         transform:translateY(-20px);
     }
-
     to{
         transform:translateY(110vh);
     }
-
 }
-
 /* village */
-
 .village{
     display:none;
     margin-top:30px;
     text-align:center;
 }
-
 .beacon{
     font-size:4rem;
     animation:pulse 1.2s infinite;
 }
-
 @keyframes pulse{
-
     0%{
         transform:scale(1);
     }
-
     50%{
         transform:scale(1.2);
     }
-
     100%{
         transform:scale(1);
     }
 }
-
 .house{
     font-size:5rem;
 }
-
 .status{
     margin-top:15px;
     font-size:1.1rem;
 }
-
 /* santa animation */
-
 .sky{
     position:relative;
     height:180px;
@@ -131,32 +104,24 @@ h1{
     display:none;
     margin-top:20px;
 }
-
 .santa{
     position:absolute;
     font-size:4rem;
     left:-350px;
     top:20px;
 }
-
 .fly{
     animation:flyAcross 7s linear forwards;
 }
-
 @keyframes flyAcross{
-
     from{
         left:-350px;
     }
-
     to{
         left:110%;
     }
-
 }
-
 /* gift */
-
 .gift{
     position:absolute;
     font-size:5rem;
@@ -166,37 +131,28 @@ h1{
     display:none;
     cursor:pointer;
 }
-
 .dropGift{
     display:block;
     animation:dropGift 1.5s forwards;
 }
-
 @keyframes dropGift{
-
     0%{
         top:20px;
     }
-
     75%{
         top:115px;
     }
-
     90%{
         top:95px;
     }
-
     100%{
         top:115px;
     }
-
 }
-
 .tapMessage{
     display:none;
     margin-top:150px;
 }
-
 .reveal{
     display:none;
     margin-top:25px;
@@ -205,15 +161,66 @@ h1{
     padding:25px;
     border-radius:12px;
 }
-
 .recipient{
     font-size:2.2rem;
     font-weight:bold;
 }
-
 .complete{
     margin-top:15px;
     color:#066d3f;
 }
-
 </style>
+</head>
+<body>
+<div id="snowContainer"></div>
+<div class="card">
+    <h1>🎄 Fluke Family Christmas Mission Control 🎄</h1>
+    <div id="content">
+        Loading Christmas assignment...
+    </div>
+</div>
+<div id="villageSection" class="village">
+    <div class="beacon" id="beacon">
+        📡
+    </div>
+    <div class="status" id="statusText">
+        North Pole Beacon Online
+    </div>
+    <div style="font-size:1.2rem;margin-top:12px;">
+        Transmitting assignment coordinates...
+    </div>
+    <div class="house">
+        🏠
+    </div>
+    <button id="transmissionButton" class="primaryButton">
+        📡 ACCEPT INCOMING TRANSMISSION
+    </button>
+</div>
+<div id="skySection" class="sky">
+    <div id="santa" class="santa">
+        🦌🦌🦌🎅
+    </div>
+    <div id="gift" class="gift">
+        🎁
+    </div>
+    <div id="tapMessage" class="tapMessage">
+        <h2>
+            🎁 Delivery Received 🎁
+        </h2>
+        <p>
+            Tap the package to open your Christmas assignment.
+        </p>
+    </div>
+</div>
+<div id="revealArea" class="reveal">
+    <h2>
+        🎁 CHRISTMAS ASSIGNMENT RECEIVED 🎁
+    </h2>
+    <div id="recipientName" class="recipient">
+    </div>
+    <div class="complete">
+        ✅ Mission Complete
+        <br><br>
+        The Elf Council thanks you for your service.
+    </div>
+</div>
