@@ -11,16 +11,11 @@
 body{
     margin:0;
     font-family:Georgia, serif;
-    background:linear-gradient(
-        to bottom,
-        #163a2d,
-        #214d3e
-    );
+    background:linear-gradient(to bottom,#163a2d,#214d3e);
     color:#f7f1e3;
     min-height:100vh;
     overflow-x:hidden;
 }
-/* SNOW */
 .snowflake{
     position:fixed;
     top:-20px;
@@ -37,7 +32,6 @@ body{
         transform:translateY(110vh);
     }
 }
-/* MAIN CARD */
 .card{
     max-width:900px;
     width:92%;
@@ -45,8 +39,7 @@ body{
     background:rgba(11,35,28,.88);
     padding:40px;
     border-radius:20px;
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.35);
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
     text-align:center;
 }
 h1{
@@ -60,14 +53,15 @@ h1{
     max-width:700px;
     font-size:1.05rem;
 }
-/* GIFT */
+.error{
+    color:#ffcccc;
+}
 .gift{
     width:220px;
     margin-top:20px;
     cursor:pointer;
     transition:all .3s ease;
 }
-
 .gift:hover{
     transform:scale(1.05);
 }
@@ -86,7 +80,6 @@ h1{
     80%{transform:rotate(8deg);}
     100%{transform:rotate(0deg);}
 }
-/* REVEAL */
 .reveal{
     display:none;
     margin-top:35px;
@@ -95,8 +88,7 @@ h1{
     border:2px solid #d9b862;
     border-radius:16px;
     padding:30px;
-    box-shadow:
-        0 0 25px rgba(217,184,98,.35);
+    box-shadow:0 0 25px rgba(217,184,98,.35);
 }
 .recipient{
     font-size:2.4rem;
@@ -107,9 +99,6 @@ h1{
 .complete{
     margin-top:20px;
     color:#7d5c19;
-}
-.error{
-    color:#ffcccc;
 }
 </style>
 </head>
@@ -127,4 +116,80 @@ h1{
             src="images/gift-box.png"
             alt="Gift Box">
         <div class="giftMessage">
-            Click the
+            Click the gift to reveal your Christmas assignment
+        </div>
+    </div>
+    <div id="revealArea" class="reveal">
+        <h2>🎁 Your Christmas Assignment 🎁</h2>
+        <div id="recipientName" class="recipient"></div>
+        <div class="complete">
+            Mission Complete<br><br>
+            The Elf Council thanks you for your service.
+        </div>
+    </div>
+</div>
+<script>
+const contentDiv = document.getElementById("content");
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+let assignedRecipient = "";
+function createSnow(){
+    const snowContainer =
+        document.getElementById("snowContainer");
+    for(let i = 0; i < 70; i++){
+        const snow =
+            document.createElement("div");
+        snow.className = "snowflake";
+        snow.innerHTML = "❄";
+        snow.style.left =
+            Math.random() * 100 + "vw";
+        snow.style.fontSize =
+            (10 + Math.random() * 15) + "px";
+        snow.style.animationDuration =
+            (5 + Math.random() * 10) + "s";
+        snowContainer.appendChild(snow);
+    }
+}
+createSnow();
+fetch("./assignments.json")
+.then(response => response.json())
+.then(data => {
+    const person = data[code];
+    if(!person){
+        contentDiv.innerHTML =
+            '<div class="error">Invalid Secret Code</div>';
+        return;
+    }
+    assignedRecipient =
+        person["Assigned Recipient"];
+    contentDiv.innerHTML = `
+        <h2>Welcome ${person["Name"]}</h2>
+        <div class="greeting">
+            ${person["Reveal Greeting"]}
+        </div>
+    `;
+    document.getElementById("giftArea")
+        .style.display = "block";
+})
+.catch(error => {
+    contentDiv.innerHTML =
+        '<div class="error">Error loading assignments.</div>';
+    console.error(error);
+});
+document.getElementById("gift")
+.addEventListener("click", () => {
+    const gift =
+        document.getElementById("gift");
+    gift.classList.add("shake");
+    setTimeout(() => {
+        gift.style.opacity = ".15";
+        gift.style.transform = "scale(1.15)";
+        document.getElementById("recipientName")
+            .innerHTML = assignedRecipient;
+        document.getElementById("revealArea")
+            .style.display = "block";
+    }, 700);
+});
+</script>
+</body>
+</html>
