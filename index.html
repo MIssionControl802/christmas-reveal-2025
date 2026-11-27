@@ -1,100 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fluke Family Christmas Mission Control</title>
-
-<style>
-body{
-    font-family:Arial,sans-serif;
-    background:#0f3d2e;
-    color:white;
-    text-align:center;
-    padding:40px;
-}
-
-.card{
-    max-width:700px;
-    margin:auto;
-    background:#184f3d;
-    padding:30px;
-    border-radius:20px;
-}
-
-button{
-    font-size:1.2rem;
-    padding:15px 25px;
-    background:#d62828;
-    color:white;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    margin-top:20px;
-}
-
-#reveal{
-    display:none;
-    margin-top:25px;
-    font-size:2rem;
-}
-</style>
-
-</head>
-<body>
-
-<div class="card">
-    <h1>🎄 Fluke Family Christmas Mission Control 🎄</h1>
-
-    <div id="content">
-        Loading Christmas assignment...
-    </div>
-</div>
-
 <script>
 
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
+document.getElementById("content").innerHTML =
+    "Looking up code: " + code;
+
 fetch("assignments.json")
-.then(r => r.json())
+.then(response => response.json())
 .then(data => {
 
-    const person = data[code];
+    document.getElementById("content").innerHTML =
+        "<h2>JSON Loaded Successfully</h2>" +
+        "<pre>" +
+        JSON.stringify(data[code], null, 2) +
+        "</pre>";
 
-    if(!person){
-        document.getElementById("content").innerHTML =
-        "<h2>No assignment found.</h2><p>Check your link.</p>";
-        return;
-    }
+})
+.catch(error => {
 
-    document.getElementById("content").innerHTML = `
-        <h2>${person["Name"]}</h2>
-
-        <p style="line-height:1.7">
-            ${person["Reveal Greeting"]}
-        </p>
-
-        <button id="showGift">
-            🎁 Reveal My Christmas Destiny
-        </button>
-
-        <div id="reveal">
-            🎁 ${person["Assigned Recipient"]} 🎁
-        </div>
-    `;
-
-    document.getElementById("showGift")
-      .addEventListener("click", () => {
-
-        document.getElementById("reveal")
-          .style.display = "block";
-
-      });
-
+    document.getElementById("content").innerHTML =
+        "<h2>ERROR</h2><pre>" +
+        error.message +
+        "</pre>";
 });
-
 </script>
-
-</body>
-</html>
