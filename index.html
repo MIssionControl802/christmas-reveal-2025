@@ -222,5 +222,103 @@ h1{
         ✅ Mission Complete
         <br><br>
         The Elf Council thanks you for your service.
-    </div>
 </div>
+</div>
+<script>
+const contentDiv =
+    document.getElementById("content");
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+const code =
+    params.get("code");
+let assignedRecipient = "";
+function createSnow(){
+    const snowContainer =
+        document.getElementById("snowContainer");
+    for(let i = 0; i < 60; i++){
+        const snow =
+            document.createElement("div");
+        snow.className = "snowflake";
+        snow.innerHTML = "❄";
+        snow.style.left =
+            Math.random() * 100 + "vw";
+        snow.style.animationDuration =
+            (5 + Math.random() * 10) + "s";
+        snow.style.fontSize =
+            (10 + Math.random() * 15) + "px";
+        snowContainer.appendChild(snow);
+    }
+}
+createSnow();
+fetch("./assignments.json")
+.then(response => response.json())
+.then(data => {
+    const person = data[code];
+    if(!person){
+        contentDiv.innerHTML =
+            "<h2>Invalid Secret Code</h2>";
+        return;
+    }
+    assignedRecipient =
+        person["Assigned Recipient"];
+    contentDiv.innerHTML = `
+        <h2>Welcome ${person["Name"]}</h2>
+        <div class="greeting">
+            ${person["Reveal Greeting"]}
+        </div>
+        <p>
+            ✅ Christmas credentials verified<br>
+            ✅ Cookie audit complete<br>
+            ✅ Holiday clearance granted
+        </p>
+    `;
+    document
+        .getElementById("villageSection")
+        .style.display = "block";
+})
+.catch(error => {
+    contentDiv.innerHTML =
+        "Error loading assignment data.";
+    console.error(error);
+});
+document
+.getElementById("transmissionButton")
+.addEventListener("click", () => {
+    document
+        .getElementById("transmissionButton")
+        .style.display = "none";
+    document
+        .getElementById("statusText")
+        .innerHTML =
+        "Santa responding to beacon signal...";
+    const sky =
+        document.getElementById("skySection");
+    sky.style.display = "block";
+    document
+        .getElementById("santa")
+        .classList.add("fly");
+    setTimeout(() => {
+        document
+            .getElementById("gift")
+            .classList.add("dropGift");
+    }, 3500);
+    setTimeout(() => {
+        document
+            .getElementById("tapMessage")
+            .style.display = "block";
+    }, 5200);
+});
+document
+.getElementById("gift")
+.addEventListener("click", () => {
+    document
+        .getElementById("recipientName")
+        .innerHTML =
+        assignedRecipient;
+    document
+        .getElementById("revealArea")
+        .style.display = "block";
+});
+</script>
